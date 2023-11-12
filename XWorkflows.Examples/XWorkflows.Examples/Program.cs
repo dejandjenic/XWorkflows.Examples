@@ -8,9 +8,14 @@ using XWorkflows.Examples.Workflows.OrderWorkflow.Base;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.RegisterWorkflows(typeof(OrderWorkflow));
+
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderEventStreamService, OrderEventStreamService>();
+
+builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ITaskEventStreamService, TaskEventStreamService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

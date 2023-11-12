@@ -4,5 +4,6 @@ public enum OrderEntityState
 {
     Created,
     Submitted,
-    Canceled
+    Canceled,
+    Delivered
 }

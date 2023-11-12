@@ -1,0 +1,6 @@
+{
+  "Identifier": "TaskWorkflow.CancelTaskState",
+  "State": 3,
+  "User": "string",
+  "Description": "string"
+}

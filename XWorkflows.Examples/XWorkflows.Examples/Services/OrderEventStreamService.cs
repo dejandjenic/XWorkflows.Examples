@@ -14,5 +14,6 @@ public enum EventType
 {
     Created,
     Submitted,
-    Canceled
+    Canceled,
+    Delivered
 }

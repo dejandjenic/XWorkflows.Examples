@@ -1,0 +1,6 @@
+{
+  "Identifier": "TaskWorkflow.CompletedTaskState",
+  "State": 2,
+  "User": "string",
+  "Description": "string"
+}

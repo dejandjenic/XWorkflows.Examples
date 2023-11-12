@@ -14,6 +14,7 @@ public  static partial class OrderEndpoints
         orderGroup.MapGet(orderRoute , GetOrder);
         orderGroup.MapPost(orderRoute + "/submit", SubmitOrder);
         orderGroup.MapPost(orderRoute + "/cancel", CancelOrder);
+        orderGroup.MapPost(orderRoute + "/deliver", DeliverOrder);
 
     }
 

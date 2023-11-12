@@ -3,7 +3,7 @@ using XWorkflows.Examples.Entities;
 
 namespace XWorkflows.Examples.Repositories;
 
-public class OrderRepository : IOrderRepository
+public class TaskRepository : ITaskRepository
 {
     public void EnsureDirectory(string path)
     {
@@ -12,42 +12,45 @@ public class OrderRepository : IOrderRepository
         if (!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
     }
-    public async Task<OrderEntity> Get(string id)
+    public async Task<TaskEntity> Get(string id)
     {
-        var path = Path.Combine("data","order", id + ".json");
+        var path = Path.Combine("data","task", id + ".json");
         EnsureDirectory(path);
 
         if (!File.Exists(path))
             return null;
         
         using var fs= new FileStream(path, FileMode.Open);
-        return await JsonSerializer.DeserializeAsync<OrderEntity>(fs);
+        return await JsonSerializer.DeserializeAsync<TaskEntity>(fs);
     }
 
-    public async Task<List<OrderEntity>> List()
+    public async Task<List<TaskEntity>> List()
     {
-        var path = Path.Combine( "data","order");
+        var path =Path.Combine( "data","task");
         if (!Directory.Exists(path))
             Directory.CreateDirectory(path);
 
-        var result = new List<OrderEntity>();
+        var result = new List<TaskEntity>();
 
         foreach (var file in Directory.GetFiles(path))
         {
             using var fs = new FileStream(file, FileMode.Open);
-            var item = await JsonSerializer.DeserializeAsync<OrderEntity>(fs);
+            var item = await JsonSerializer.DeserializeAsync<TaskEntity>(fs);
             result.Add(item);
         }
 
         return result;
     }
 
-    public async Task Save(string id, OrderEntity entity)
+    public async Task Save(string id, TaskEntity entity)
     {
-        var path = Path.Combine("data","order", id + ".json");
+        var path = Path.Combine("data", "task", id + ".json");
         EnsureDirectory(path);
-        
-        using var fs = new FileStream(path, FileMode.OpenOrCreate);
-        await JsonSerializer.SerializeAsync(fs, entity);
-    }
+
+        using var fs = new FileStream(path, FileMode.CreateNew);
+        await JsonSerializer.SerializeAsync(fs, entity, options: new JsonSerializerOptions()
+        {
+            WriteIndented = true
+        });
+}
 }

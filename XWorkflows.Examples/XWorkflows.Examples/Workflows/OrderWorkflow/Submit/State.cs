@@ -1,5 +1,6 @@
 using XWorkflows.Examples.Entities;
 using XWorkflows.Examples.Workflows.OrderWorkflow.Base;
+using XWorkflows.Examples.Workflows.OrderWorkflow.Deliver;
 
 namespace XWorkflows.Examples.Workflows.OrderWorkflow.Submit;
 
@@ -12,4 +13,11 @@ public class SubmitOrderState : OrderWorkflowState
         return OrderEntityState.Submitted;
     }
 
+    public override IEnumerable<Type> AllowedTransitions()
+    {
+        return new List<Type>()
+        {
+            typeof(DeliverOrderAction)
+        };
+    }
 }
